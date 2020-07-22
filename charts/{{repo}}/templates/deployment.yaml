@@ -1,0 +1,56 @@
+{{- $chart := .Chart -}}
+{{- $values := .Values -}}
+{{- $release := .Release -}}
+
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "application.name" . }}
+  labels:
+    app: {{ template "application.name" . }}
+    environment: {{ $values.labels.environment | quote }}
+    repo: {{ $values.labels.repo | quote }}
+    team: {{ (index $chart.Maintainers 0).Name }}
+    version: {{ $chart.Version | quote }}
+spec:
+  replicas: {{ $values.replicas }}
+  selector:
+    matchLabels:
+        app: {{ template "application.name" . }}
+        team: {{ (index $chart.Maintainers 0).Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "application.name" . }}
+        team: {{ (index $chart.Maintainers 0).Name }}
+    spec:
+      containers:
+        - name: {{ $chart.Name }}
+          image: "{{ $values.image.registry }}:{{ $values.image.tag }}"
+          imagePullPolicy: {{ $values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {{- toYaml $values.resources | nindent 12 }}
+      {{- with $values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with $values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with $values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}

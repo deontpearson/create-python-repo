@@ -1,0 +1,11 @@
+name: {{repo}}
+version: 1.0.0
+description: {{description}}
+keywords:
+- python
+sources:
+- https://github.com/TAKEALOT/{{project}}
+maintainers:
+- name: {{author}}
+  email: {{email}}
+appVersion: 1

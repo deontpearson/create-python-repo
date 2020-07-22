@@ -1,0 +1,47 @@
+# Default values for charts.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+dev:
+  patch: false
+  mountPath: /usr/local/tal/{{repo}}
+
+namespace: default
+
+labels:
+  environment: docker-desktop
+  repo: {{repo}}
+
+replicas: 1
+
+image:
+  pullPolicy: Always
+  registry: eu.gcr.io/tal-assets/{{repo}}
+  tag: master
+
+nameOverride: ""
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+  paths: []
+  hosts:
+    - {{repo}}.kubernetes.env
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - {{repo}}.kubernetes.env
+
+resources:
+  limits:
+    memory: 400Mi
+  requests:
+    cpu: 60m
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

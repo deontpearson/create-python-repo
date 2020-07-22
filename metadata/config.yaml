@@ -1,0 +1,7 @@
+# Values defined within {{ }} are placeholders to be replaced when actual values
+placeholders:
+- project
+- repo
+- author
+- email
+- description

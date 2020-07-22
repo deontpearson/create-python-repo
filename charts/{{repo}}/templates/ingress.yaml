@@ -1,0 +1,43 @@
+{{- $chart := .Chart -}}
+{{- $values := .Values -}}
+
+{{- if $values.ingress.enabled -}}
+{{- $ingressPaths := $values.ingress.paths -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ template "application.name" . }}
+  labels:
+    app: {{ template "application.name" . }}
+    environment: {{ $values.labels.environment | quote }}
+    repo: {{ $values.labels.repo | quote }}
+    team: {{ (index $chart.Maintainers 0).Name }}
+    version: {{ $chart.Version | quote }}
+  {{- with $values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+{{- if $values.ingress.tls }}
+  tls:
+  {{- range $values.ingress.tls }}
+    - hosts:
+      {{- range .hosts }}
+        - {{ . | quote }}
+      {{- end }}
+      secretName: {{ .secretName }}
+  {{- end }}
+{{- end }}
+  rules:
+  {{- range $values.ingress.hosts }}
+    - host: {{ . | quote }}
+      http:
+        paths:
+	{{- range $ingressPaths }}
+          - path: {{ . }}
+            backend:
+              serviceName: {{ template "application.name" . }}
+              servicePort: http
+	{{- end }}
+  {{- end }}
+{{- end }}
