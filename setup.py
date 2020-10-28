@@ -7,10 +7,10 @@ with open("requirements.txt") as fd:
     requirements = [dependency.strip() for dependency in fd]
 
 with open("dev-requirements.txt") as fd:
-    dev_require = [dependency.strip() for dependency in fd]
+    dev_requirements = [dependency.strip() for dependency in fd]
 
 with open("tests/requirements.txt") as fp:
-    test_require = [dependency.strip() for dependency in fp]
+    test_requirements = [dependency.strip() for dependency in fp]
 
 with open("README.md") as f:
     README = f.read()
@@ -30,7 +30,7 @@ setup(
     long_description_content_type="text/markdown",
     include_package_data=True,
     install_requires=requirements,
-    extras_require={"dev": dev_require, "test": test_require},
+    extras_require={"dev": dev_requirements, "test": test_requirements},
     classifiers=[
         "Intended Audience :: Takealot Developers",
         "Natural Language :: English",
