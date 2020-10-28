@@ -1,0 +1,7 @@
+-c requirements.txt
+pre-commit >= 2.2.0, < 2.3
+flake8
+mypy
+black
+jupyterlab
+pip-tools

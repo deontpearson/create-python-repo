@@ -6,10 +6,14 @@ with open("version") as fp:
 with open("requirements.txt") as fd:
     requirements = [dependency.strip() for dependency in fd]
 
+with open("dev-requirements.txt") as fd:
+    dev_require = [dependency.strip() for dependency in fd]
+
+with open("tests/requirements.txt") as fp:
+    test_require = [dependency.strip() for dependency in fp]
+
 with open("README.md") as f:
     README = f.read()
-
-dev_require = ["pre-commit >= 2.2.0, < 2.3", "flake8", "mypy", "black"]
 
 setup(
     name="{{project}}",
@@ -26,7 +30,7 @@ setup(
     long_description_content_type="text/markdown",
     include_package_data=True,
     install_requires=requirements,
-    extras_require={"dev": dev_require},
+    extras_require={"dev": dev_require, "test": test_require},
     classifiers=[
         "Intended Audience :: Takealot Developers",
         "Natural Language :: English",
