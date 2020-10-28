@@ -1,3 +1,9 @@
+[![python](https://img.shields.io/badge/python-3.7-informational)](https://docs.python.org/3/)
+[![pip-tools](https://img.shields.io/badge/pip--tools-enabled-informational)](https://github.com/jazzband/pip-tools)
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen)](https://github.com/pre-commit/pre-commit)
+[![black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![pytest](https://img.shields.io/badge/pytest-disabled-red)](https://docs.pytest.org/en/latest/)
+
 # {{repo}}
 
 - charts - Helm charts

@@ -5,3 +5,4 @@ mypy
 black
 jupyterlab
 pip-tools
+mypy
