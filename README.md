@@ -41,7 +41,7 @@ pre-commit install # installs pre-commit into the virtual env
 
 > **Note:** If you have already set up the environment, and just want to update your dependencies:
 > ```bash
-> make init
+> make install
 > ```
 
 >**Note:** If you want to run the pre-commits without committing to a branch:
